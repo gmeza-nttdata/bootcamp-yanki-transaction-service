@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDateTime;
+
 @Component
 public class YankiTransactionCrudRepository implements YankiTransactionRepository {
 
@@ -29,6 +31,8 @@ public class YankiTransactionCrudRepository implements YankiTransactionRepositor
     @Override
     public Mono<YankiTransactionStatement> create(YankiTransactionStatement yanki) {
         return Mono.just(yanki)
+                .doOnNext(y -> y.setId(null))
+                .doOnNext(y -> y.setDateTime(LocalDateTime.now()))
                 .map(this::mapToDao)
                 .flatMap(repository::save)
                 .map(this::mapFromDao);

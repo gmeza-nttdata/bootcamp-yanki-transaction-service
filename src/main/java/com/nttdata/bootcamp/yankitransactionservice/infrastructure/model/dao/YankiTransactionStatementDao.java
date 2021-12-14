@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class YankiTransactionStatementDao {
     @Id
     private String id;
-    private String yankiId;
+    private Long yankiId;
     private String operation;
     private BigDecimal amount;
     private LocalDateTime dateTime;
